@@ -1,3 +1,5 @@
+## the hurrican example from [hurricans](https://github.com/RomanKyrychenko/library/blob/master/hurricanes.R)
+## there are several packages needed, like maps for map_data() function, readr, hrbrthemes, and others, install them if message saying missing packages
 require(dplyr)
 require(ggplot2)
 library(gganimate)
@@ -48,4 +50,4 @@ p <- ggplot() +
 
 g <- animate(p, nframes = 600, end_pause = 1, rewind = F, fps = 35)
 
-anim_save("images/hurricanes_green.gif", animation = g)
+anim_save("./hurricanes_green.gif", animation = g)
