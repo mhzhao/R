@@ -114,9 +114,9 @@ saveGIF({
     
     # plot the heart
     hdata=heart_full[seq(num_hearts),]
-    #p <- ggplot(heart_full[seq(num_hearts), ], aes(x, y, color = z1, size = z2,axis=FALSE)) + 
-      #geom_point(pch = -1 * as.hexmode(127808),show.legend = FALSE) + 
-    p <- ggplot()+geom_emoji('footprints',color = hdata$z1,size=hdata$z2,x=hdata$x,y=hdata$y)+
+    p <- ggplot(heart_full[seq(num_hearts), ], aes(x, y, color = z1, size = z2,axis=FALSE)) + 
+      geom_point(pch = -1 * as.hexmode(9829),show.legend = FALSE) + # need find a font to support the corresponding unicode font
+    #p <- ggplot()+geom_emoji('footprints',color = hdata$z1,size=hdata$z2,x=hdata$x,y=hdata$y)+ # not compatible with Rstudio default plot, use x11 or quartz instead
       scale_color_gradient(limits = c(0, 1), low = "red3", high = "pink") + 
       scale_size(limits = c(0, 3), range = c(0.1, 20)) + 
       theme_void() + 
