@@ -1,0 +1,80 @@
+% pdflatex
+\documentclass[tikz,convert={png,size=900,density=600}]{standalone}
+\usepackage{tikz}
+\usepackage{animate}
+\usepackage{pgfplots}
+\usepgflibrary{decorations.footprints}
+\usetikzlibrary{lindenmayersystems}
+\pgfplotsset{compat=1.16}
+
+\begin{document}
+\iffalse
+\begin{tikzpicture}
+       \pgfmathdeclarefunction{R}{1}{\pgfmathparse{(sin(deg(#1))*sqrt(abs(cos(deg(#1)))))/(sin(deg(#1))+8/5)-1.5*sin(deg(#1))+1.5}}
+\begin{axis}
+        [
+        hide x axis,
+        hide y axis,
+        domain=-pi:pi,
+        samples=1000,
+        data cs=polarrad,
+        ]
+        \addplot [solid, thick,red] {R(x)};
+\end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}
+  \draw[red,fill=red] (0,0) .. controls (0,0.75) and (-1.5,1.00) .. (-1.5,2)  arc (180:0:0.75)  -- cycle;
+  \draw[red,fill=red] (0,0) .. controls (0,0.75) and ( 1.5,1.00) .. ( 1.5,2)  arc (0:180:0.75) -- cycle;
+\end{tikzpicture}
+\begin{tikzpicture}
+    \begin{axis}[axis lines=none]
+        \addplot[rectangle,very thick,variable=t,domain=0:360,samples=150] ({16*sin(t)*sin(t)*sin(t)},{13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t)});
+    \end{axis}
+\end{tikzpicture}
+\fi
+\iftrue
+  \foreach \k in {30,40,...,410}{
+\begin{tikzpicture}[decoration={footprints,foot length=20pt}]
+   \draw[help lines,opacity=0] grid (7,6);
+    \begin{axis}[axis lines=none]
+        \addplot[color=red,very thick,draw=none,variable=t,domain=0:360,samples=150] ({16*16*sin(t)*sin(t)*sin(t)},{16*(13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t))});
+        \ifnum\k<370 
+        \addplot[decorate,scale=2.5,color=red,variable=t,domain=0:\k,samples=150] ({16*16*sin(t)*sin(t)*sin(t)},{16*(13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t))});
+        \else
+        \addplot[decorate,scale=2.5,color=red,variable=t,domain=0:360,samples=150] ({16*16*sin(t)*sin(t)*sin(t)},{16*(13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t))});
+        \draw [green!50!black, rotate=90,xshift=0.4cm,yshift=-2.9cm,scale=0.8]
+        [l-system={rule set={F -> FF-[-F+F]+[+F-F]}, axiom=F, order=(\k-360)/10, step=2pt, randomize step percent=25, angle=30, randomize angle percent=5}]
+        lindenmayer system;
+        \iffalse
+        \draw [green!50!black, rotate=90,xshift=0.4cm,yshift=-0.9cm,scale=0.8]
+        [l-system={rule set={F -> FF-[+F-F]+[-F+F]}, axiom=F, order=(\k-370)/10, step=2pt, randomize step percent=25, angle=30, randomize angle percent=5}]
+        lindenmayer system;
+        \draw [green!50!black, rotate=90,xshift=0.4cm,yshift=-0.91cm,scale=0.8]
+        [l-system={rule set={F -> FF+[-F+F]-[+F-F]}, axiom=F, order=(\k-370)/10, step=2pt, randomize step percent=25, angle=30, randomize angle percent=5}]
+        lindenmayer system;
+        \draw [green!50!black, rotate=90,xshift=0.4cm,yshift=-4.90cm,scale=0.8]
+        [l-system={rule set={F -> FF-[+F-F]+[-F+F]}, axiom=F, order=(\k-370)/10, step=2pt, randomize step percent=25, angle=30, randomize angle percent=5}]
+        lindenmayer system;
+        \draw [green!50!black, rotate=90,xshift=0.4cm,yshift=-4.91cm,scale=0.8]
+        [l-system={rule set={F -> FF+[-F+F]-[+F-F]}, axiom=F, order=(\k-370)/10, step=2pt, randomize step percent=25, angle=30, randomize angle percent=5}]
+        lindenmayer system;
+        \fi
+        \fi
+    \end{axis}
+\end{tikzpicture}
+  }
+  \fi
+  \iffalse
+  \foreach \k in {1,2,...,5}{
+  \begin{tikzpicture}
+   \draw[help lines,opacity=0] grid (20,10);
+    \begin{axis}[axis lines=none]
+        \addplot[color=red,very thick,draw=none,variable=t,domain=0:360,samples=150] ({16*16*16*sin(t)*sin(t)*sin(t)},{16*16*(13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t))});
+    \draw [green!50!black, rotate=90,xshift=0cm,yshift=-2cm,scale=0.8]
+    [l-system={rule set={F -> FF-[-F+F]+[+F-F]}, axiom=F, order=\k, step=2pt, randomize step percent=25, angle=30, randomize angle percent=5}]
+    lindenmayer system;
+    \end{axis}
+  \end{tikzpicture}
+}
+\fi
+\end{document}
