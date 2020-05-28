@@ -25,3 +25,14 @@ I use it in R markdown
     + `R CMD build revealjs`
   - it will result in a new archive file named `revealjs_0.9.tar.gz`, lastly, install the modified archive:
     + `R CMD INSTALL revealjs_0.9.tar.gz`
+## Error in Windows
+1. I use virtual machine to install the windows, so the disk is mapped as network path, and pandoc() rely on Sys.getenv('R_USER')
+
+```
+> Sys.getenv('R_USER')
+[1] "//Mac/Home/Documents"
+```
+
+This directory is equivalent to my directory Y:/Documents
+Thus I created a .Renviron file in Y:/Documents/ and included in it the single entry R_USER=Y:/Documents/
+Now knittings work.
